@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-property-placeholder="http://www.mulesoft.org/schema/mule/secure-property-placeholder" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-property-placeholder http://www.mulesoft.org/schema/mule/secure-property-placeholder/current/mule-secure-property-placeholder.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <secure-property-placeholder:config name="Secure_Property_Placeholder" key="1111111111111111" location="file://\c:/Users/sadik.ali/Desktop/server/sampleProperty.properties" doc:name="Secure Property Placeholder"/>
+    <flow name="externalpropertyfilsFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/getDetails" allowedMethods="GET" doc:name="HTTP"/>
+        <set-variable variableName="varExam" value="${sampleName}" doc:name="Variable"/>
+        <set-payload value="#[flowVars.varExam]" doc:name="Set Payload"/>
+    </flow>
+</mule>
